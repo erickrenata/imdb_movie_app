@@ -38,3 +38,6 @@ proguard/
 
 # OS
 .DS_Store
+
+# keys
+appConstant.properties
