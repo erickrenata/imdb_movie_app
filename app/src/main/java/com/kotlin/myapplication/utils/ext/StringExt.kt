@@ -6,7 +6,6 @@ package com.kotlin.myapplication.utils.ext
  */
 
 
-
 fun String?.filterEmpty(): String {
     if (this.isNullOrEmpty())
         return ""

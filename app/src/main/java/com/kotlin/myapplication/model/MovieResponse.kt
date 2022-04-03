@@ -1,17 +1,22 @@
-package com.kotlin.myapplication.data
+package com.kotlin.myapplication.model
 
-import androidx.annotation.Keep
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-@Keep
+
 data class MovieResponse(
     val page: Int?,
-    val results: List<Result?>?,
+    val results: List<Movie?>?,
     val total_pages: Int?,
     val total_results: Int?
 )
 
-@Keep
-data class Result(
+@Entity(
+    tableName = "movies"
+)
+data class Movie(
+    @PrimaryKey(autoGenerate = true)
+    var idMovie : Int? = null,
     val adult: Boolean?,
     val backdrop_path: String?,
     val genre_ids: List<Int?>?,

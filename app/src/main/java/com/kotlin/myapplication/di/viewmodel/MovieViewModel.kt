@@ -3,7 +3,7 @@ package com.kotlin.myapplication.di.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kotlin.myapplication.data.MovieResponse
+import com.kotlin.myapplication.model.MovieResponse
 import com.kotlin.myapplication.di.repository.MovieRepository
 import com.kotlin.myapplication.utils.ext.filterEmpty
 import com.kotlin.myapplication.utils.ext.handleError

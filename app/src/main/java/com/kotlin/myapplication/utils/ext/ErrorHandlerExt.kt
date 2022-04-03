@@ -1,7 +1,6 @@
 package com.kotlin.myapplication.utils.ext
 
-import android.util.Log
-import com.kotlin.myapplication.data.ErrorResponse
+import com.kotlin.myapplication.model.ErrorResponse
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import okhttp3.ResponseBody

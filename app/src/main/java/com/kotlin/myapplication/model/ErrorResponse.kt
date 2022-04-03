@@ -1,8 +1,6 @@
-package com.kotlin.myapplication.data
+package com.kotlin.myapplication.model
 
-import androidx.annotation.Keep
 
-@Keep
 data class ErrorResponse(
     val status_code: Int?,
     val status_message: String?,
