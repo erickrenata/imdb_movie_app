@@ -3,8 +3,9 @@ package com.kotlin.myapplication.di.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kotlin.myapplication.model.MovieResponse
 import com.kotlin.myapplication.di.repository.MovieRepository
+import com.kotlin.myapplication.models.item.MovieItemViewModel
+import com.kotlin.myapplication.models.mapper.toMovieItem
 import com.kotlin.myapplication.utils.ext.filterEmpty
 import com.kotlin.myapplication.utils.ext.handleError
 import com.kotlin.myapplication.utils.network.Resource
@@ -21,7 +22,7 @@ class MovieViewModel(
 ) : ViewModel(), KoinComponent {
 
     val loader = MutableLiveData<Boolean>()
-    val movieList = MutableLiveData<Resource<MovieResponse>>()
+    val movieList = MutableLiveData<Resource<List<MovieItemViewModel>>>()
 
     fun callGetPopularMovieList() {
         viewModelScope.launch {
@@ -29,7 +30,7 @@ class MovieViewModel(
             repository.getPopularMovieList(1).let {
                 loader.postValue(false)
                 if (it.isSuccessful) {
-                    movieList.postValue(Resource.success(it.body()))
+                    movieList.postValue(Resource.success(it.body()?.toMovieItem()))
                 } else {
                     movieList.postValue(
                         Resource.error(

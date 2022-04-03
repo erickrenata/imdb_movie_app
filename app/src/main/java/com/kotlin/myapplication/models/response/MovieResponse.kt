@@ -1,4 +1,4 @@
-package com.kotlin.myapplication.model
+package com.kotlin.myapplication.models.response
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -19,7 +19,6 @@ data class Movie(
     var idMovie : Int? = null,
     val adult: Boolean?,
     val backdrop_path: String?,
-    val genre_ids: List<Int?>?,
     val id: Int?,
     val original_language: String?,
     val original_title: String?,

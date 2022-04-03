@@ -1,4 +1,4 @@
-package com.kotlin.myapplication.model
+package com.kotlin.myapplication.models.response
 
 
 data class ErrorResponse(

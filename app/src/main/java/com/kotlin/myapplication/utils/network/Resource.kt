@@ -1,6 +1,6 @@
 package com.kotlin.myapplication.utils.network
 
-import com.kotlin.myapplication.constant.Status
+import com.kotlin.myapplication.constants.Status
 
 
 /**

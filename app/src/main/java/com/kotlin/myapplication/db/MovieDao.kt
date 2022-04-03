@@ -2,7 +2,7 @@ package com.kotlin.myapplication.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.kotlin.myapplication.model.Movie
+import com.kotlin.myapplication.models.response.Movie
 
 
 /**

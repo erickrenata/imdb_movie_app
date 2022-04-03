@@ -1,4 +1,4 @@
-package com.kotlin.myapplication.constant
+package com.kotlin.myapplication.constants
 
 
 /**

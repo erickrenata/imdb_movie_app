@@ -1,6 +1,6 @@
 package com.kotlin.myapplication.api
 
-import com.kotlin.myapplication.model.MovieResponse
+import com.kotlin.myapplication.models.response.MovieResponse
 import retrofit2.Response
 
 
