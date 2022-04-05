@@ -1,5 +1,7 @@
 plugins {
     id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
 }
@@ -21,6 +23,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "API_KEY", apikeyProperties['API_KEY'])
+        buildConfigField("String", "BASE_URL", apikeyProperties['BASE_URL'])
     }
 
     buildTypes {

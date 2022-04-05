@@ -53,7 +53,7 @@ private fun provideRetrofit(
 ): Retrofit =
     Retrofit.Builder()
         .addConverterFactory(MoshiConverterFactory.create())
-        .baseUrl("https://api.themoviedb.org/3/")
+        .baseUrl(BuildConfig.BASE_URL)
         .client(okHttpClient)
         .build()
 

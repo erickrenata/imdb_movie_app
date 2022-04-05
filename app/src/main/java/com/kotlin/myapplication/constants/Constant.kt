@@ -8,12 +8,13 @@ package com.kotlin.myapplication.constants
 class Constant {
 
     companion object {
-
+        const val LANGUAGE_EN_US = "en-US"
     }
 
 }
 
 enum class Status {
     SUCCESS,
+    LOADING,
     ERROR
 }

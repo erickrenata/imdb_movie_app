@@ -1,7 +1,10 @@
 package com.kotlin.myapplication.models.mapper
 
-import com.kotlin.myapplication.models.item.MovieItemViewModel
+import com.kotlin.myapplication.models.item.MovieItemModel
 import com.kotlin.myapplication.models.response.MovieResponse
+import com.kotlin.myapplication.utils.DateUtils
+import com.kotlin.myapplication.utils.DateUtils.MMMM_DD_YYYY
+import com.kotlin.myapplication.utils.DateUtils.YYYY_MM_DD
 
 
 /**
@@ -9,16 +12,26 @@ import com.kotlin.myapplication.models.response.MovieResponse
  */
 
 
-fun MovieResponse?.toMovieItem(): List<MovieItemViewModel>? {
+fun MovieResponse?.toMovieItem(): List<MovieItemModel>? {
     return if (this?.results.isNullOrEmpty()) {
         arrayListOf()
     } else {
         this?.results?.map {
-            MovieItemViewModel(
+            MovieItemModel(
+                id = it?.id,
                 title = it?.title,
-                date = it?.release_date,
-                urlImage = it?.poster_path,
-                description = it?.overview
+                originalTitle = it?.original_title,
+                date = DateUtils.formatDate(
+                    date = it?.release_date,
+                    oldFormat = YYYY_MM_DD,
+                    newFormat = MMMM_DD_YYYY
+                ),
+                posterImage = it?.poster_path,
+                backdropImage = it?.backdrop_path,
+                description = it?.overview,
+                voteAverage = it?.vote_average,
+                voteCount = it?.vote_count,
+                language = it?.original_language
             )
         }
     }

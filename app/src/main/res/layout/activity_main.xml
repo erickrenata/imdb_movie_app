@@ -3,20 +3,26 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools">
 
-	<androidx.constraintlayout.widget.ConstraintLayout
+	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
+		android:orientation="vertical"
 		tools:context=".features.MainActivity">
 
-		<androidx.recyclerview.widget.RecyclerView
-			android:id="@+id/rvMovie"
+		<com.google.android.material.tabs.TabLayout
+			android:id="@+id/tabLayout"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:text="Hello World!"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintLeft_toLeftOf="parent"
-			app:layout_constraintRight_toRightOf="parent"
-			app:layout_constraintTop_toTopOf="parent" />
+			android:layout_height="wrap_content"
+			android:background="@color/purple_500"
+			app:tabIndicatorColor="@color/white"
+			app:tabIndicatorHeight="@dimen/dp_3"
+			app:tabSelectedTextColor="@color/white"
+			app:tabTextColor="@color/white" />
 
-	</androidx.constraintlayout.widget.ConstraintLayout>
+		<androidx.viewpager2.widget.ViewPager2
+			android:id="@+id/viewPager"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"/>
+
+	</LinearLayout>
 </layout>

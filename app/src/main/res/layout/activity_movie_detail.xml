@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+
+	<data>
+
+		<variable
+			name="item"
+			type="com.kotlin.myapplication.models.item.MovieItemModel" />
+	</data>
+
+	<androidx.coordinatorlayout.widget.CoordinatorLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:fitsSystemWindows="true">
+
+		<com.google.android.material.appbar.AppBarLayout
+			android:id="@+id/app_bar"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/dp_250"
+			android:fitsSystemWindows="true">
+
+			<com.google.android.material.appbar.CollapsingToolbarLayout
+				android:id="@+id/toolbar_layout"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:fitsSystemWindows="true"
+				app:contentScrim="?attr/colorPrimary"
+				app:layout_scrollFlags="scroll|exitUntilCollapsed"
+				app:toolbarId="@+id/toolbar">
+
+				<androidx.appcompat.widget.AppCompatImageView
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:background="@color/light_gray"
+					android:fitsSystemWindows="true"
+					android:scaleType="centerCrop"
+					app:imageUrl="@{item.posterImage}"
+					app:layout_collapseMode="parallax" />
+
+				<androidx.appcompat.widget.Toolbar
+					android:id="@+id/toolbar"
+					android:layout_width="match_parent"
+					android:layout_height="?attr/actionBarSize"
+					app:layout_collapseMode="pin"
+					app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+			</com.google.android.material.appbar.CollapsingToolbarLayout>
+
+		</com.google.android.material.appbar.AppBarLayout>
+
+		<androidx.core.widget.NestedScrollView
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:overScrollMode="never"
+			app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+			<androidx.constraintlayout.widget.ConstraintLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:padding="@dimen/dp_16">
+
+				<ImageView
+					android:id="@+id/imageView"
+					android:layout_width="@dimen/dp_100"
+					android:layout_height="@dimen/dp_130"
+					android:background="@color/light_gray"
+					android:scaleType="centerCrop"
+					app:imageUrl="@{item.posterImage}"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent" />
+
+				<TextView
+					android:id="@+id/textView1"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="@dimen/dp_8"
+					android:layout_marginRight="@dimen/dp_8"
+					android:paddingEnd="@dimen/dp_24"
+					android:text="@{item.originalTitle}"
+					android:textColor="@color/black"
+					android:textSize="@dimen/text_20"
+					android:textStyle="bold"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toEndOf="@+id/imageView"
+					app:layout_constraintTop_toTopOf="@+id/imageView"
+					tools:text="@string/text_short_lorem_ipsum" />
+
+				<TextView
+					android:id="@+id/textView112"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="@dimen/dp_8"
+					android:layout_marginRight="@dimen/dp_8"
+					android:text="@{String.format(@string/label_vote_average, item.voteAverage)}"
+					android:textColor="@color/gray"
+					android:textSize="@dimen/text_9"
+					app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toEndOf="@+id/imageView2"
+					app:layout_constraintTop_toTopOf="@+id/imageView2"
+					tools:text="@string/text_short_lorem_ipsum" />
+
+				<ImageView
+					android:id="@+id/imageView2"
+					android:layout_width="@dimen/dp_16"
+					android:layout_height="@dimen/dp_16"
+					android:layout_marginLeft="@dimen/dp_8"
+					android:layout_marginTop="@dimen/dp_8"
+					android:src="@drawable/ic_star"
+					app:layout_constraintStart_toEndOf="@+id/imageView"
+					app:layout_constraintTop_toBottomOf="@+id/textView1" />
+
+				<TextView
+					android:id="@+id/textView2"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="@dimen/dp_8"
+					android:layout_marginRight="@dimen/dp_8"
+					android:text="@{String.format(@string/label_vote_count, item.voteCount)}"
+					android:textColor="@color/gray"
+					android:textSize="@dimen/text_9"
+					app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toEndOf="@+id/imageView3"
+					app:layout_constraintTop_toTopOf="@+id/imageView3"
+					tools:text="@string/text_short_lorem_ipsum" />
+
+				<ImageView
+					android:id="@+id/imageView3"
+					android:layout_width="@dimen/dp_16"
+					android:layout_height="@dimen/dp_16"
+					android:layout_marginLeft="@dimen/dp_8"
+					android:layout_marginTop="@dimen/dp_4"
+					android:src="@drawable/ic_acc"
+					app:layout_constraintStart_toEndOf="@+id/imageView"
+					app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+				<TextView
+					android:id="@+id/textView3"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="@dimen/dp_8"
+					android:layout_marginRight="@dimen/dp_8"
+					android:text="@{item.date}"
+					android:textColor="@color/gray"
+					android:textSize="@dimen/text_9"
+					app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toEndOf="@+id/imageView4"
+					app:layout_constraintTop_toTopOf="@+id/imageView4"
+					tools:text="@string/text_short_lorem_ipsum" />
+
+				<ImageView
+					android:id="@+id/imageView4"
+					android:layout_width="@dimen/dp_16"
+					android:layout_height="@dimen/dp_16"
+					android:layout_marginLeft="@dimen/dp_8"
+					android:layout_marginTop="@dimen/dp_4"
+					android:src="@drawable/ic_calendar"
+					app:layout_constraintStart_toEndOf="@+id/imageView"
+					app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+				<TextView
+					android:id="@+id/textView5"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="@dimen/dp_8"
+					android:layout_marginRight="@dimen/dp_8"
+					android:text="@{item.language}"
+					android:textColor="@color/gray"
+					android:textSize="@dimen/text_9"
+					app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toEndOf="@+id/imageView5"
+					app:layout_constraintTop_toTopOf="@+id/imageView5"
+					tools:text="@string/text_short_lorem_ipsum" />
+
+				<ImageView
+					android:id="@+id/imageView5"
+					android:layout_width="@dimen/dp_16"
+					android:layout_height="@dimen/dp_16"
+					android:layout_marginLeft="@dimen/dp_8"
+					android:layout_marginTop="@dimen/dp_4"
+					android:src="@drawable/ic_globe"
+					app:layout_constraintStart_toEndOf="@+id/imageView"
+					app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+				<TextView
+					android:id="@+id/textView"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/label_over_view"
+					android:layout_marginTop="@dimen/dp_16"
+					android:textColor="@color/black"
+					android:textSize="@dimen/text_14"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="@dimen/dp_4"
+					android:lineSpacingExtra="@dimen/dp_3"
+					android:text="@{item.description}"
+					android:textColor="@color/gray"
+					android:textSize="@dimen/text_12"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/textView"
+					tools:text="@string/text_long_lorem_ipsum" />
+
+			</androidx.constraintlayout.widget.ConstraintLayout>
+
+		</androidx.core.widget.NestedScrollView>
+
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/fab"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/dp_16"
+			app:backgroundTint="@color/white"
+			app:layout_anchor="@id/app_bar"
+			app:layout_anchorGravity="bottom|end"
+			app:srcCompat="@drawable/ic_fav_filled" />
+
+	</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.kotlin.myapplication.databinding.ItemMoviePreviewBinding
-import com.kotlin.myapplication.models.item.MovieItemViewModel
+import com.kotlin.myapplication.models.item.MovieItemModel
 
 
 /**
@@ -15,12 +15,12 @@ import com.kotlin.myapplication.models.item.MovieItemViewModel
 
 class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
-    private val differCallback = object : DiffUtil.ItemCallback<MovieItemViewModel>() {
-        override fun areItemsTheSame(oldItem: MovieItemViewModel, newItem: MovieItemViewModel): Boolean {
-            return oldItem.urlImage == newItem.urlImage
+    private val differCallback = object : DiffUtil.ItemCallback<MovieItemModel>() {
+        override fun areItemsTheSame(oldItem: MovieItemModel, newItem: MovieItemModel): Boolean {
+            return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: MovieItemViewModel, newItem: MovieItemViewModel): Boolean {
+        override fun areContentsTheSame(oldItem: MovieItemModel, newItem: MovieItemModel): Boolean {
             return oldItem == newItem
         }
     }
@@ -49,15 +49,15 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
         }
     }
 
-    private var onItemClickListener: ((MovieItemViewModel) -> Unit)? = null
+    private var onItemClickListener: ((MovieItemModel) -> Unit)? = null
 
-    fun  setOnClickListener(listener: (MovieItemViewModel) -> Unit) {
+    fun  setOnClickListener(listener: (MovieItemModel) -> Unit) {
         onItemClickListener = listener
     }
 
     inner class MovieViewHolder(private val binding: ItemMoviePreviewBinding) : RecyclerView.ViewHolder(binding.root){
 
-        fun bind(item: MovieItemViewModel){
+        fun bind(item: MovieItemModel){
             binding.apply {
                 binding.item = item
                 binding.executePendingBindings()

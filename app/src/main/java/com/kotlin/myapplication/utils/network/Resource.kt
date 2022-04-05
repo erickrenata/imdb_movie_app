@@ -12,10 +12,15 @@ data class Resource<out T>(
     val status: Status,
     val data: T? = null,
     val message: String? = "",
-    val errorCode: Int = 0
+    val errorCode: Int = 0,
+    val loading: Boolean = false
 ) {
 
     companion object {
+
+        fun <T> loading(data: Boolean?): Resource<T> {
+            return Resource(Status.LOADING, loading = data == true)
+        }
 
         fun <T> success(data: T?): Resource<T> {
             return Resource(Status.SUCCESS, data, null)

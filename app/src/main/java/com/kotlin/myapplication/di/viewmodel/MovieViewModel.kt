@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kotlin.myapplication.di.repository.MovieRepository
-import com.kotlin.myapplication.models.item.MovieItemViewModel
+import com.kotlin.myapplication.models.item.MovieItemModel
 import com.kotlin.myapplication.models.mapper.toMovieItem
 import com.kotlin.myapplication.utils.ext.filterEmpty
 import com.kotlin.myapplication.utils.ext.handleError
@@ -21,18 +21,36 @@ class MovieViewModel(
     private val repository: MovieRepository
 ) : ViewModel(), KoinComponent {
 
-    val loader = MutableLiveData<Boolean>()
-    val movieList = MutableLiveData<Resource<List<MovieItemViewModel>>>()
+    val popularMovieList = MutableLiveData<Resource<List<MovieItemModel>>>()
+    val topRatedMovieList = MutableLiveData<Resource<List<MovieItemModel>>>()
 
     fun callGetPopularMovieList() {
         viewModelScope.launch {
-            loader.postValue(true)
+            popularMovieList.postValue(Resource.loading(true))
             repository.getPopularMovieList(1).let {
-                loader.postValue(false)
+                popularMovieList.postValue(Resource.loading(false))
                 if (it.isSuccessful) {
-                    movieList.postValue(Resource.success(it.body()?.toMovieItem()))
+                    popularMovieList.postValue(Resource.success(it.body()?.toMovieItem()))
                 } else {
-                    movieList.postValue(
+                    popularMovieList.postValue(
+                        Resource.error(
+                            it.errorBody().handleError().filterEmpty()
+                        )
+                    )
+                }
+            }
+        }
+    }
+
+    fun callGetTopRatedMovieList() {
+        viewModelScope.launch {
+            topRatedMovieList.postValue(Resource.loading(true))
+            repository.getTopRatedMovieList(1).let {
+                topRatedMovieList.postValue(Resource.loading(true))
+                if (it.isSuccessful) {
+                    topRatedMovieList.postValue(Resource.success(it.body()?.toMovieItem()))
+                } else {
+                    topRatedMovieList.postValue(
                         Resource.error(
                             it.errorBody().handleError().filterEmpty()
                         )
