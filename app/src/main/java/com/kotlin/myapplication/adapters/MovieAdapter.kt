@@ -39,7 +39,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movie = differ.currentList[position]
-        holder.bind(movie)
+        holder.bind(movie, position)
         holder.itemView.apply {
             setOnClickListener {
                 onItemClickListener?.let {
@@ -50,24 +50,26 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     }
 
     private var onItemClickListener: ((MovieItemModel) -> Unit)? = null
-    private var onFavIconClickedListener: ((MovieItemModel) -> Unit)? = null
+    private var onFavIconClickedListener: ((Int) -> Unit)? = null
 
-    fun  setOnClickListener(listener: (MovieItemModel) -> Unit) {
+    fun setOnClickListener(listener: (MovieItemModel) -> Unit) {
         onItemClickListener = listener
     }
-    fun  setOnFavIconClickedListener(listener: (MovieItemModel) -> Unit) {
+
+    fun setOnFavIconClickedListener(listener: (Int) -> Unit) {
         onFavIconClickedListener = listener
     }
 
-    inner class MovieViewHolder(private val binding: ItemMoviePreviewBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class MovieViewHolder(private val binding: ItemMoviePreviewBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: MovieItemModel){
+        fun bind(item: MovieItemModel, position: Int) {
             binding.apply {
                 binding.item = item
                 binding.executePendingBindings()
                 binding.ivFavorite.setOnClickListener {
                     onFavIconClickedListener?.let {
-                        it(item)
+                        it(position)
                     }
                 }
             }

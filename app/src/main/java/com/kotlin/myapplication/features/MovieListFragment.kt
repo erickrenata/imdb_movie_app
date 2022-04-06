@@ -5,14 +5,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.kotlin.myapplication.R
 import com.kotlin.myapplication.adapters.MovieAdapter
+import com.kotlin.myapplication.constants.Constant.Companion.MOVIE_FAVORITES
 import com.kotlin.myapplication.databinding.FragmentMovieListBinding
+import com.kotlin.myapplication.di.viewmodel.MovieViewModel
 import com.kotlin.myapplication.models.item.MovieItemModel
+import com.kotlin.myapplication.models.mapper.setAllMoviesToFavorites
+import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
  * Created by @erickrenata on 05/04/22.
@@ -20,14 +23,19 @@ import com.kotlin.myapplication.models.item.MovieItemModel
 
 class MovieListFragment : Fragment() {
 
+    private val viewModel: MovieViewModel by viewModel()
     private val mActivity: MainActivity by lazy { context as MainActivity }
 
     private lateinit var binding: FragmentMovieListBinding
     private val movieAdapter: MovieAdapter by lazy { MovieAdapter() }
 
+    private lateinit var movieType: String
+
     companion object {
-        fun newInstance(): MovieListFragment {
-            return MovieListFragment()
+        fun newInstance(type: String): MovieListFragment {
+            val movieListFragment = MovieListFragment()
+            movieListFragment.movieType = type
+            return movieListFragment
         }
     }
 
@@ -44,6 +52,32 @@ class MovieListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
+        setupObserveSavedMovies()
+    }
+
+    private fun setupObserveSavedMovies() {
+        viewModel.getSavedMovies().observe(viewLifecycleOwner) { movies ->
+            if (movieType != MOVIE_FAVORITES) {
+                movies.setAllMoviesToFavorites()
+                for (i in 0 until movieAdapter.differ.currentList.size) {
+                    val favoriteMovie = movies.find {
+                        movieAdapter.differ.currentList[i].id == it.id
+                    }
+                    if (favoriteMovie != null) {
+                        if (movieAdapter.differ.currentList[i].isLiked != favoriteMovie.isLiked) {
+                            movieAdapter.differ.currentList[i].isLiked = favoriteMovie.isLiked
+                            movieAdapter.notifyItemChanged(i)
+                        }
+                    } else {
+                        if (movieAdapter.differ.currentList[i].isLiked) {
+                            movieAdapter.differ.currentList[i].isLiked =
+                                !movieAdapter.differ.currentList[i].isLiked
+                            movieAdapter.notifyItemChanged(i)
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun setupRecyclerView() {
@@ -55,7 +89,15 @@ class MovieListFragment : Fragment() {
             navigateToDetailMovie(it)
         }
         movieAdapter.setOnFavIconClickedListener {
-            Toast.makeText(mActivity, "Fav Button Clicked", Toast.LENGTH_SHORT).show()
+            updateFavoriteMovieList(it)
+        }
+    }
+
+    private fun updateFavoriteMovieList(it: Int) {
+        if (movieAdapter.differ.currentList[it].isLiked) {
+            viewModel.deleteMovies(movieAdapter.differ.currentList[it])
+        } else {
+            viewModel.saveMovie(movieAdapter.differ.currentList[it])
         }
     }
 

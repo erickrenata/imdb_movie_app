@@ -1,16 +1,19 @@
 package com.kotlin.myapplication.features
 
+
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kotlin.myapplication.R
+import com.kotlin.myapplication.constants.Constant.Companion.MOVIE_FAVORITES
+import com.kotlin.myapplication.constants.Constant.Companion.MOVIE_POPULAR
+import com.kotlin.myapplication.constants.Constant.Companion.MOVIE_TOP_RATED
 import com.kotlin.myapplication.constants.Status
 import com.kotlin.myapplication.databinding.ActivityMainBinding
 import com.kotlin.myapplication.di.viewmodel.MovieViewModel
@@ -22,9 +25,21 @@ class MainActivity : AppCompatActivity() {
     private val viewModel: MovieViewModel by viewModel()
     private lateinit var binding: ActivityMainBinding
 
-    private val popularFragment: MovieListFragment by lazy { MovieListFragment.newInstance() }
-    private val topRatedFragment: MovieListFragment by lazy { MovieListFragment.newInstance() }
-    private val favoritesFragment: MovieListFragment by lazy { MovieListFragment.newInstance() }
+    private val popularFragment: MovieListFragment by lazy {
+        MovieListFragment.newInstance(
+            MOVIE_POPULAR
+        )
+    }
+    private val topRatedFragment: MovieListFragment by lazy {
+        MovieListFragment.newInstance(
+            MOVIE_TOP_RATED
+        )
+    }
+    private val favoritesFragment: MovieListFragment by lazy {
+        MovieListFragment.newInstance(
+            MOVIE_FAVORITES
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,11 +64,10 @@ class MainActivity : AppCompatActivity() {
         }.attach()
     }
 
-    private fun createBadgeOnFavouritesTab() {
+    private fun createBadgeOnFavouritesTab(size: Int) {
         binding.tabLayout.getTabAt(2)?.apply {
-            // TODO : will update once favorite feature completed
-            orCreateBadge.number = 10
-            badge?.isVisible = true
+            orCreateBadge.number = size
+            badge?.isVisible = size > 0
         }
     }
 
@@ -61,7 +75,10 @@ class MainActivity : AppCompatActivity() {
         viewModel.popularMovieList.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    if (it.loading) Log.d("POPULAR", "now loading") else Log.d("POPULAR", "loading completed")
+                    if (it.loading) Log.d("POPULAR", "now loading") else Log.d(
+                        "POPULAR",
+                        "loading completed"
+                    )
                 }
                 Status.SUCCESS -> {
                     it.data?.let { response ->
@@ -77,7 +94,10 @@ class MainActivity : AppCompatActivity() {
         viewModel.topRatedMovieList.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    if (it.loading) Log.d("TOP RATED", "now loading") else Log.d("TOP RATED", "loading completed")
+                    if (it.loading) Log.d("TOP RATED", "now loading") else Log.d(
+                        "TOP RATED",
+                        "loading completed"
+                    )
                 }
                 Status.SUCCESS -> {
                     it.data?.let { response ->
@@ -91,6 +111,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         viewModel.getSavedMovies().observe(this) { movies ->
+            createBadgeOnFavouritesTab(movies.size)
             favoritesFragment.setDataList(movies.setAllMoviesToFavorites())
         }
     }
@@ -112,7 +133,7 @@ class MainActivity : AppCompatActivity() {
                 2 -> {
                     favoritesFragment
                 }
-                else -> MovieListFragment.newInstance()
+                else -> MovieListFragment.newInstance(MOVIE_POPULAR)
             }
         }
     }

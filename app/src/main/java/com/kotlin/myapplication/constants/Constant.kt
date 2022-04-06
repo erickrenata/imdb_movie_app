@@ -9,6 +9,10 @@ class Constant {
 
     companion object {
         const val LANGUAGE_EN_US = "en-US"
+
+        const val MOVIE_POPULAR = "popular"
+        const val MOVIE_TOP_RATED = "top_rated"
+        const val MOVIE_FAVORITES = "favorites"
     }
 
 }
