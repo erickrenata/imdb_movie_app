@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto">
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:shimmer="http://schemas.android.com/tools">
 
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
@@ -15,5 +16,68 @@
 			app:layout_constraintRight_toRightOf="parent"
 			app:layout_constraintTop_toTopOf="parent" />
 
+
+		<com.facebook.shimmer.ShimmerFrameLayout
+			android:id="@+id/shimmerLoader"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:visibility="gone"
+			shimmer:duration="800">
+
+			<ScrollView
+				android:layout_width="match_parent"
+				android:layout_height="match_parent">
+
+				<GridLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:columnCount="2"
+					android:rowCount="3"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintRight_toRightOf="parent"
+					app:layout_constraintTop_toTopOf="parent">
+
+					<include
+						layout="@layout/item_movie_preview_shimmer"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_columnWeight="1" />
+
+					<include
+						layout="@layout/item_movie_preview_shimmer"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_columnWeight="1" />
+
+					<include
+						layout="@layout/item_movie_preview_shimmer"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_columnWeight="1" />
+
+					<include
+						layout="@layout/item_movie_preview_shimmer"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_columnWeight="1" />
+
+					<include
+						layout="@layout/item_movie_preview_shimmer"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_columnWeight="1" />
+
+					<include
+						layout="@layout/item_movie_preview_shimmer"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:layout_columnWeight="1" />
+
+				</GridLayout>
+
+			</ScrollView>
+
+		</com.facebook.shimmer.ShimmerFrameLayout>
 	</androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

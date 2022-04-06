@@ -75,10 +75,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.popularMovieList.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    if (it.loading) Log.d("POPULAR", "now loading") else Log.d(
-                        "POPULAR",
-                        "loading completed"
-                    )
+                    if (it.loading) popularFragment.showLoader() else popularFragment.hideLoader()
                 }
                 Status.SUCCESS -> {
                     it.data?.let { response ->
@@ -94,10 +91,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.topRatedMovieList.observe(this) {
             when (it.status) {
                 Status.LOADING -> {
-                    if (it.loading) Log.d("TOP RATED", "now loading") else Log.d(
-                        "TOP RATED",
-                        "loading completed"
-                    )
+                    if (it.loading) popularFragment.showLoader() else popularFragment.hideLoader()
                 }
                 Status.SUCCESS -> {
                     it.data?.let { response ->

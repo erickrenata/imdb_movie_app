@@ -55,6 +55,18 @@ class MovieListFragment : Fragment() {
         setupObserveSavedMovies()
     }
 
+    fun showLoader(){
+        binding.rvMovie.visibility = View.GONE
+        binding.shimmerLoader.visibility = View.VISIBLE
+        binding.shimmerLoader.startShimmerAnimation()
+    }
+
+    fun hideLoader(){
+        binding.rvMovie.visibility = View.VISIBLE
+        binding.shimmerLoader.visibility = View.GONE
+        binding.shimmerLoader.stopShimmerAnimation()
+    }
+
     private fun setupObserveSavedMovies() {
         viewModel.getSavedMovies().observe(viewLifecycleOwner) { movies ->
             if (movieType != MOVIE_FAVORITES) {

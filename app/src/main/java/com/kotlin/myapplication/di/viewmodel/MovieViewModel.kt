@@ -1,6 +1,5 @@
 package com.kotlin.myapplication.di.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -45,7 +44,7 @@ class MovieViewModel(
     fun callGetTopRatedMovieList() = viewModelScope.launch {
         topRatedMovieList.postValue(Resource.loading(true))
         repository.getTopRatedMovieList(1).let {
-            topRatedMovieList.postValue(Resource.loading(true))
+            topRatedMovieList.postValue(Resource.loading(false))
             if (it.isSuccessful) {
                 topRatedMovieList.postValue(Resource.success(it.body()?.toMovieItem().setFavoriteValue(getSavedMoviesSync())))
             } else {
