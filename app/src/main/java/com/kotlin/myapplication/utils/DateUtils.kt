@@ -1,7 +1,7 @@
 package com.kotlin.myapplication.utils
 
-import com.kotlin.myapplication.utils.ext.formatDate
-import com.kotlin.myapplication.utils.ext.getDateObject
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 /**
@@ -18,8 +18,20 @@ object DateUtils {
             return "-"
         if (date.isEmpty())
             return "-"
-        val oldDate = date.getDateObject(oldFormat)
-        return oldDate.formatDate(newFormat)
+        if (oldFormat.isEmpty())
+            return "-"
+        if (newFormat.isEmpty())
+            return "-"
+        val oldDate = try {
+            SimpleDateFormat(oldFormat, Locale.US).parse(date)
+        } catch (e: Exception) {
+            return "-"
+        }
+        return try {
+            SimpleDateFormat(newFormat, Locale.US).format(oldDate)
+        } catch (e: Exception) {
+            "-"
+        }
     }
 
 }
