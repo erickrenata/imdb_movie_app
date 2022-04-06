@@ -2,7 +2,7 @@ package com.kotlin.myapplication.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.kotlin.myapplication.models.response.Movie
+import com.kotlin.myapplication.models.item.MovieItemModel
 
 
 /**
@@ -13,11 +13,14 @@ import com.kotlin.myapplication.models.response.Movie
 interface MovieDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun upsert(movie: Movie): Long
+    suspend fun upsert(movie: MovieItemModel): Long
 
     @Query("SELECT * FROM movies")
-    fun getAllMovies(): LiveData<List<Movie>>
+    fun getAllMovies(): LiveData<List<MovieItemModel>>
+
+    @Query("SELECT * FROM movies")
+    suspend fun getAllMoviesSync(): List<MovieItemModel>
 
     @Delete
-    suspend fun deleteMovie(movie: Movie)
+    suspend fun deleteMovie(movie: MovieItemModel)
 }

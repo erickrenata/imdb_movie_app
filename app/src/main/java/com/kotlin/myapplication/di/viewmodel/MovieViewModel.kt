@@ -1,10 +1,12 @@
 package com.kotlin.myapplication.di.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kotlin.myapplication.di.repository.MovieRepository
 import com.kotlin.myapplication.models.item.MovieItemModel
+import com.kotlin.myapplication.models.mapper.setFavoriteValue
 import com.kotlin.myapplication.models.mapper.toMovieItem
 import com.kotlin.myapplication.utils.ext.filterEmpty
 import com.kotlin.myapplication.utils.ext.handleError
@@ -24,39 +26,47 @@ class MovieViewModel(
     val popularMovieList = MutableLiveData<Resource<List<MovieItemModel>>>()
     val topRatedMovieList = MutableLiveData<Resource<List<MovieItemModel>>>()
 
-    fun callGetPopularMovieList() {
-        viewModelScope.launch {
-            popularMovieList.postValue(Resource.loading(true))
-            repository.getPopularMovieList(1).let {
-                popularMovieList.postValue(Resource.loading(false))
-                if (it.isSuccessful) {
-                    popularMovieList.postValue(Resource.success(it.body()?.toMovieItem()))
-                } else {
-                    popularMovieList.postValue(
-                        Resource.error(
-                            it.errorBody().handleError().filterEmpty()
-                        )
+    fun callGetPopularMovieList() = viewModelScope.launch {
+        popularMovieList.postValue(Resource.loading(true))
+        repository.getPopularMovieList(1).let {
+            popularMovieList.postValue(Resource.loading(false))
+            if (it.isSuccessful) {
+                popularMovieList.postValue(Resource.success(it.body()?.toMovieItem().setFavoriteValue(getSavedMoviesSync())))
+            } else {
+                popularMovieList.postValue(
+                    Resource.error(
+                        it.errorBody().handleError().filterEmpty()
                     )
-                }
+                )
             }
         }
     }
 
-    fun callGetTopRatedMovieList() {
-        viewModelScope.launch {
+    fun callGetTopRatedMovieList() = viewModelScope.launch {
+        topRatedMovieList.postValue(Resource.loading(true))
+        repository.getTopRatedMovieList(1).let {
             topRatedMovieList.postValue(Resource.loading(true))
-            repository.getTopRatedMovieList(1).let {
-                topRatedMovieList.postValue(Resource.loading(true))
-                if (it.isSuccessful) {
-                    topRatedMovieList.postValue(Resource.success(it.body()?.toMovieItem()))
-                } else {
-                    topRatedMovieList.postValue(
-                        Resource.error(
-                            it.errorBody().handleError().filterEmpty()
-                        )
+            if (it.isSuccessful) {
+                topRatedMovieList.postValue(Resource.success(it.body()?.toMovieItem().setFavoriteValue(getSavedMoviesSync())))
+            } else {
+                topRatedMovieList.postValue(
+                    Resource.error(
+                        it.errorBody().handleError().filterEmpty()
                     )
-                }
+                )
             }
         }
+    }
+
+    fun saveMovie(movie: MovieItemModel) = viewModelScope.launch {
+        repository.upsert(movie)
+    }
+
+    fun getSavedMovies() = repository.getAllMovies()
+
+    private suspend fun getSavedMoviesSync() = repository.getAllMoviesSync()
+
+    fun deleteMovies(movie: MovieItemModel) = viewModelScope.launch {
+        repository.deleteMovie(movie)
     }
 }

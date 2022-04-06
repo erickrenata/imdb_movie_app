@@ -191,8 +191,8 @@
 					android:id="@+id/textView"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="@string/label_over_view"
 					android:layout_marginTop="@dimen/dp_16"
+					android:text="@string/label_over_view"
 					android:textColor="@color/black"
 					android:textSize="@dimen/text_14"
 					app:layout_constraintStart_toStartOf="parent"
@@ -221,10 +221,10 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_margin="@dimen/dp_16"
+			android:src="@{item.isLiked ? @drawable/ic_fav_filled :@drawable/ic_fav_outline}"
 			app:backgroundTint="@color/white"
 			app:layout_anchor="@id/app_bar"
-			app:layout_anchorGravity="bottom|end"
-			app:srcCompat="@drawable/ic_fav_filled" />
+			app:layout_anchorGravity="bottom|end" />
 
 	</androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

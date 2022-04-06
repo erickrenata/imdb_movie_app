@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -13,6 +14,7 @@ import com.kotlin.myapplication.R
 import com.kotlin.myapplication.constants.Status
 import com.kotlin.myapplication.databinding.ActivityMainBinding
 import com.kotlin.myapplication.di.viewmodel.MovieViewModel
+import com.kotlin.myapplication.models.mapper.setAllMoviesToFavorites
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
@@ -87,6 +89,9 @@ class MainActivity : AppCompatActivity() {
                         .show()
                 }
             }
+        }
+        viewModel.getSavedMovies().observe(this) { movies ->
+            favoritesFragment.setDataList(movies.setAllMoviesToFavorites())
         }
     }
 

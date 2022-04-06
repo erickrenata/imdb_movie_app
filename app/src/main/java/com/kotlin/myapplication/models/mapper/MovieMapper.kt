@@ -5,6 +5,7 @@ import com.kotlin.myapplication.models.response.MovieResponse
 import com.kotlin.myapplication.utils.DateUtils
 import com.kotlin.myapplication.utils.DateUtils.MMMM_DD_YYYY
 import com.kotlin.myapplication.utils.DateUtils.YYYY_MM_DD
+import com.kotlin.myapplication.utils.ext.filterEmpty
 
 
 /**
@@ -34,5 +35,30 @@ fun MovieResponse?.toMovieItem(): List<MovieItemModel>? {
                 language = it?.original_language
             )
         }
+    }
+}
+
+fun List<MovieItemModel>?.setFavoriteValue(savedList: List<MovieItemModel>?): List<MovieItemModel>? {
+    return if (this?.isNullOrEmpty() == true) {
+        arrayListOf()
+    } else {
+        this.map {
+            val favouritedMovie = savedList?.find { saved ->
+                saved.id == it.id
+            }
+            it.isLiked = favouritedMovie != null
+        }
+        return this
+    }
+}
+
+fun List<MovieItemModel>?.setAllMoviesToFavorites(): List<MovieItemModel> {
+    return if (this?.isNullOrEmpty() == true) {
+        arrayListOf()
+    } else {
+        this.map {
+            it.isLiked = true
+        }
+        return this
     }
 }

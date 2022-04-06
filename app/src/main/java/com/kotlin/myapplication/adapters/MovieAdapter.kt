@@ -50,9 +50,13 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     }
 
     private var onItemClickListener: ((MovieItemModel) -> Unit)? = null
+    private var onFavIconClickedListener: ((MovieItemModel) -> Unit)? = null
 
     fun  setOnClickListener(listener: (MovieItemModel) -> Unit) {
         onItemClickListener = listener
+    }
+    fun  setOnFavIconClickedListener(listener: (MovieItemModel) -> Unit) {
+        onFavIconClickedListener = listener
     }
 
     inner class MovieViewHolder(private val binding: ItemMoviePreviewBinding) : RecyclerView.ViewHolder(binding.root){
@@ -61,6 +65,11 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
             binding.apply {
                 binding.item = item
                 binding.executePendingBindings()
+                binding.ivFavorite.setOnClickListener {
+                    onFavIconClickedListener?.let {
+                        it(item)
+                    }
+                }
             }
         }
     }

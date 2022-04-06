@@ -11,12 +11,7 @@ data class MovieResponse(
     val total_results: Int?
 )
 
-@Entity(
-    tableName = "movies"
-)
 data class Movie(
-    @PrimaryKey(autoGenerate = true)
-    var idMovie : Int? = null,
     val adult: Boolean?,
     val backdrop_path: String?,
     val id: Int?,

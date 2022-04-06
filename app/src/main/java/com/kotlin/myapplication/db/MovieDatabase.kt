@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.kotlin.myapplication.models.response.Movie
+import com.kotlin.myapplication.models.item.MovieItemModel
 
 
 /**
@@ -12,8 +12,8 @@ import com.kotlin.myapplication.models.response.Movie
  */
 
 @Database(
-    entities = [Movie::class],
-    version = 1
+    entities = [MovieItemModel::class],
+    version = 3
 )
 abstract class MovieDatabase : RoomDatabase() {
 
@@ -28,11 +28,11 @@ abstract class MovieDatabase : RoomDatabase() {
             instance ?: createDatabase(context).also { instance = it }
         }
 
-        private fun createDatabase(context: Context) =
+        fun createDatabase(context: Context) =
             Room.databaseBuilder(
                 context.applicationContext,
                 MovieDatabase::class.java,
                 "movie_db.db"
-            ).build()
+            ).fallbackToDestructiveMigration().build()
     }
 }

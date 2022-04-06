@@ -10,7 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.kotlin.myapplication.R
 import com.kotlin.myapplication.databinding.ActivityMovieDetailBinding
+import com.kotlin.myapplication.di.viewmodel.MovieViewModel
 import com.kotlin.myapplication.models.item.MovieItemModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 /**
@@ -19,14 +21,36 @@ import com.kotlin.myapplication.models.item.MovieItemModel
 
 class MovieDetailActivity : AppCompatActivity() {
 
+    private val viewModel: MovieViewModel by viewModel()
     private lateinit var binding: ActivityMovieDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_detail)
 
+        val item =
+            intent.extras?.getParcelable<MovieItemModel>(MovieItemModel::class.java.simpleName)
+
         setupToolbar()
-        setupData()
+        setupData(item)
+
+        binding.fab.setOnClickListener {
+            item?.let {
+                onFavIconClicked(item)
+            }
+        }
+    }
+
+    private fun onFavIconClicked(item: MovieItemModel) {
+        if (item.isLiked) {
+            viewModel.deleteMovies(item)
+            binding.fab.setImageResource(R.drawable.ic_fav_outline)
+            item.isLiked = false
+        } else {
+            viewModel.saveMovie(item)
+            binding.fab.setImageResource(R.drawable.ic_fav_filled)
+            item.isLiked = true
+        }
     }
 
     private fun setupToolbar() {
@@ -48,8 +72,9 @@ class MovieDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupData() {
-        val item = intent.extras?.getParcelable<MovieItemModel>(MovieItemModel::class.java.simpleName)
+    private fun setupData(item: MovieItemModel?) {
         binding.item = item
     }
+
+
 }
