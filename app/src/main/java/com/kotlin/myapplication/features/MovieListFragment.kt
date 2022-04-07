@@ -72,9 +72,7 @@ class MovieListFragment : Fragment() {
             if (movieType != MOVIE_FAVORITES) {
                 movies.setAllMoviesToFavorites()
                 for (i in 0 until movieAdapter.differ.currentList.size) {
-                    val favoriteMovie = movies.find {
-                        movieAdapter.differ.currentList[i].id == it.id
-                    }
+                    val favoriteMovie = viewModel.getFavoriteMovieByID(movieAdapter.differ.currentList[i].id, movies)
                     if (favoriteMovie != null) {
                         if (movieAdapter.differ.currentList[i].isLiked != favoriteMovie.isLiked) {
                             movieAdapter.differ.currentList[i].isLiked = favoriteMovie.isLiked

@@ -57,6 +57,12 @@ class MovieViewModel(
         }
     }
 
+    fun getFavoriteMovieByID(id: Int?, movies: List<MovieItemModel>): MovieItemModel?{
+        return movies.find {
+            id == it.id
+        }
+    }
+
     fun saveMovie(movie: MovieItemModel) = viewModelScope.launch {
         repository.upsert(movie)
     }
