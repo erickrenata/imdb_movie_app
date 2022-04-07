@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1036046891435",
+    "project_id": "imbd-movie-app",
+    "storage_bucket": "imbd-movie-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1036046891435:android:00cb7bff49dd881f8c3aee",
+        "android_client_info": {
+          "package_name": "com.kotlin.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1036046891435-bc2vmu5pcqchtals20cgnh7lanff0pbq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kotlin.myapplication",
+            "certificate_hash": "a9d8e6228c5fb59c4e27060ff0b0e087dc55341e"
+          }
+        },
+        {
+          "client_id": "1036046891435-h0l0c6f7kcrkn986i0tl21big2sn4f2f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-zCBu3eUJnRD73v6BhIdhyrGjNZCylvI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1036046891435-h0l0c6f7kcrkn986i0tl21big2sn4f2f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
