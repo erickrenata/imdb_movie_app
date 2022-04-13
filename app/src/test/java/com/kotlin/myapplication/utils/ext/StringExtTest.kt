@@ -25,4 +25,7 @@ class StringExtTest {
     fun `filterEmpty string return string`(){
         Assert.assertEquals("text".filterEmpty(), "text")
     }
+
+
+
 }

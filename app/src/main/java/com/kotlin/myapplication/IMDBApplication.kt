@@ -3,6 +3,7 @@ package com.kotlin.myapplication
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import com.kotlin.myapplication.di.appModule
+import com.kotlin.myapplication.di.newAppModule
 import com.kotlin.myapplication.di.repoModule
 import com.kotlin.myapplication.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
@@ -25,7 +26,7 @@ class IMDBApplication : Application() {
     private fun setupKoin() {
         startKoin {
             androidContext(this@IMDBApplication)
-            modules(listOf(appModule, repoModule, viewModelModule))
+            modules(listOf(appModule, repoModule, viewModelModule, newAppModule))
         }
     }
 }
