@@ -1,5 +1,7 @@
 package com.kotlin.myapplication.api
 
+import com.kotlin.myapplication.models.body.LoginRequest
+import com.kotlin.myapplication.models.response.LoginResponse
 import com.kotlin.myapplication.models.response.MovieResponse
 import retrofit2.Response
 
@@ -14,4 +16,6 @@ interface ApiHelper {
     suspend fun getPopularMovieList(page: Int): Response<MovieResponse>
 
     suspend fun getTopRatedMovieList(page: Int): Response<MovieResponse>
+
+    suspend fun login(loginRequest: LoginRequest): Response<LoginResponse>
 }
