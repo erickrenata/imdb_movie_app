@@ -16,6 +16,4 @@ interface ApiHelper {
     suspend fun getPopularMovieList(page: Int): Response<MovieResponse>
 
     suspend fun getTopRatedMovieList(page: Int): Response<MovieResponse>
-
-    suspend fun login(loginRequest: LoginRequest): Response<LoginResponse>
 }

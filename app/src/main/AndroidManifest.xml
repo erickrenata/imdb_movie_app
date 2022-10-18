@@ -14,7 +14,7 @@
 		android:supportsRtl="true"
 		android:theme="@style/Theme.MyApplication">
 		<activity
-			android:name=".features.LoginActivity"
+			android:name=".features.MainActivity"
 			android:exported="true">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
@@ -25,9 +25,6 @@
 
 		<activity
 			android:name=".features.MovieDetailActivity"/>
-
-		<activity
-			android:name=".features.MainActivity"/>
 	</application>
 
 </manifest>

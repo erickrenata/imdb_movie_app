@@ -30,7 +30,4 @@ interface ApiService {
         @Query("api_key") apiKey: String = BuildConfig.API_KEY,
         @Query("language") language: String = LANGUAGE_EN_US
     ): Response<MovieResponse>
-
-    @POST("https://6124ba6d300c540017873d1e.mockapi.io/api/v1/login")
-    suspend fun login(@Body loginRequest: LoginRequest): Response<LoginResponse>
 }

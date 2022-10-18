@@ -1,6 +1,5 @@
 package com.kotlin.myapplication.di
 
-import com.kotlin.myapplication.di.viewmodel.LoginViewModel
 import com.kotlin.myapplication.di.viewmodel.MovieViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -13,5 +12,4 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
     viewModel { MovieViewModel(get()) }
-    viewModel { LoginViewModel(get()) }
 }

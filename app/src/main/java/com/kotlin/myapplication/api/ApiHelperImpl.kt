@@ -18,7 +18,4 @@ class ApiHelperImpl(private val apiService: ApiService) : ApiHelper {
     override suspend fun getTopRatedMovieList(page: Int): Response<MovieResponse> =
         apiService.getTopRatedMovieList(page)
 
-    override suspend fun login(loginRequest: LoginRequest): Response<LoginResponse> =
-        apiService.login(loginRequest)
-
 }

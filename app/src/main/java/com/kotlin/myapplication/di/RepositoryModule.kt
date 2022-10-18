@@ -1,6 +1,5 @@
 package com.kotlin.myapplication.di
 
-import com.kotlin.myapplication.di.repository.LoginRepository
 import com.kotlin.myapplication.di.repository.MovieRepository
 import org.koin.dsl.module
 
@@ -12,5 +11,4 @@ import org.koin.dsl.module
 
 val repoModule = module {
     single { MovieRepository(get(), get()) }
-    single { LoginRepository(get()) }
 }
