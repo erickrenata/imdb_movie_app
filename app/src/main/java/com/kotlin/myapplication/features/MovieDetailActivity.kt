@@ -1,21 +1,24 @@
 package com.kotlin.myapplication.features
 
+import android.content.Intent
 import android.graphics.BlendMode
 import android.graphics.BlendModeColorFilter
 import android.graphics.Color
 import android.graphics.PorterDuff
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.bumptech.glide.Glide
 import com.kotlin.myapplication.R
 import com.kotlin.myapplication.constants.Constant
 import com.kotlin.myapplication.constants.Status
 import com.kotlin.myapplication.databinding.ActivityMovieDetailBinding
 import com.kotlin.myapplication.di.viewmodel.MovieViewModel
 import com.kotlin.myapplication.models.item.MovieItemModel
-import com.kotlin.myapplication.models.mapper.setAllMoviesToFavorites
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -56,7 +59,9 @@ class MovieDetailActivity : AppCompatActivity() {
                 }
                 Status.SUCCESS -> {
                     it.data?.let { response ->
-                        Toast.makeText(this, (response.size.toString() + " "), Toast.LENGTH_SHORT).show()
+                        if (response.isNotEmpty()) {
+                            setupTrailer(response[0]?.key)
+                        }
                     }
                 }
                 Status.ERROR -> {
@@ -72,7 +77,7 @@ class MovieDetailActivity : AppCompatActivity() {
                 }
                 Status.SUCCESS -> {
                     it.data?.let { response ->
-                        Toast.makeText(this, (response.size.toString() + " "), Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(this, (response.size.toString() + " "), Toast.LENGTH_SHORT).show()
                     }
                 }
                 Status.ERROR -> {
@@ -80,6 +85,14 @@ class MovieDetailActivity : AppCompatActivity() {
                         .show()
                 }
             }
+        }
+    }
+
+    private fun setupTrailer(key: String?) {
+        binding.layoutTrailer.visibility = View.VISIBLE
+        Glide.with(this).load("${Constant.BASE_IMAGE_THUMBNAIL_YOUTUBE}$key/0.jpg").into(binding.ivThumbnailYoutube)
+        binding.layoutTrailer.setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Constant.BASE__YOUTUBE + key)))
         }
     }
 

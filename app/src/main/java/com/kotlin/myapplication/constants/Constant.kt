@@ -13,6 +13,10 @@ class Constant {
         const val MOVIE_POPULAR = "popular"
         const val MOVIE_TOP_RATED = "top_rated"
         const val MOVIE_FAVORITES = "favorites"
+
+        const val BASE_IMAGE_MOVIE = "https://image.tmdb.org/t/p/w185"
+        const val BASE_IMAGE_THUMBNAIL_YOUTUBE = "https://img.youtube.com/vi/"
+        const val BASE__YOUTUBE = "http://www.youtube.com/watch?v="
     }
 
 }

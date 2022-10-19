@@ -7,6 +7,7 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.bumptech.glide.Glide
+import com.kotlin.myapplication.constants.Constant
 import kotlinx.android.parcel.Parcelize
 
 
@@ -39,6 +40,6 @@ data class MovieItemModel(
 @BindingAdapter("imageUrl")
 fun loadImage(view: ImageView, url: String?) {
     if (!url.isNullOrEmpty()) {
-        Glide.with(view.context).load("https://image.tmdb.org/t/p/w185$url").into(view)
+        Glide.with(view.context).load("${Constant.BASE_IMAGE_MOVIE}$url").into(view)
     }
 }
