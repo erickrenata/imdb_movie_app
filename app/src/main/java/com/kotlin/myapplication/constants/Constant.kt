@@ -22,3 +22,10 @@ enum class Status {
     LOADING,
     ERROR
 }
+
+enum class ErrorCondition {
+    AUTH,
+    INTERNAL,
+    BADREQUEST,
+    NETWORKISSUE
+}

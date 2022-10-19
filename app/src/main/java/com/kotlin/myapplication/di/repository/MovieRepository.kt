@@ -23,4 +23,8 @@ class MovieRepository(private val apiHelper: ApiHelper, private val dao: MovieDa
 
     suspend fun deleteMovie(movie: MovieItemModel) = dao.deleteMovie(movie)
 
+    suspend fun getTrailerMovieList(id: String) = apiHelper.getTrailerMovieList(id)
+
+    suspend fun getReviewMovieList(id: String) = apiHelper.getReviewMovieList(id)
+
 }

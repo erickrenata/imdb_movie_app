@@ -1,8 +1,8 @@
 package com.kotlin.myapplication.api
 
-import com.kotlin.myapplication.models.body.LoginRequest
-import com.kotlin.myapplication.models.response.LoginResponse
 import com.kotlin.myapplication.models.response.MovieResponse
+import com.kotlin.myapplication.models.response.MovieReviewResponse
+import com.kotlin.myapplication.models.response.MovieTrailerResponse
 import retrofit2.Response
 
 
@@ -17,5 +17,11 @@ class ApiHelperImpl(private val apiService: ApiService) : ApiHelper {
 
     override suspend fun getTopRatedMovieList(page: Int): Response<MovieResponse> =
         apiService.getTopRatedMovieList(page)
+
+    override suspend fun getTrailerMovieList(id: String): Response<MovieTrailerResponse> =
+        apiService.getTrailerMovieList(id)
+
+    override suspend fun getReviewMovieList(id: String): Response<MovieReviewResponse> =
+        apiService.getReviewMovieList(id)
 
 }

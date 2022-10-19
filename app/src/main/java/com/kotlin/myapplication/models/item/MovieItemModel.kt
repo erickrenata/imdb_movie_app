@@ -39,6 +39,6 @@ data class MovieItemModel(
 @BindingAdapter("imageUrl")
 fun loadImage(view: ImageView, url: String?) {
     if (!url.isNullOrEmpty()) {
-        Glide.with(view.context).load("http://image.tmdb.org/t/p/w185$url").into(view)
+        Glide.with(view.context).load("https://image.tmdb.org/t/p/w185$url").into(view)
     }
 }
