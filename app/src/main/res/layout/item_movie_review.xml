@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+
+	<data>
+
+		<variable
+			name="item"
+			type="com.kotlin.myapplication.models.response.Review" />
+	</data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<TextView
+			android:id="@+id/tvAuthor"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/dp_8"
+			android:text="@{item.author}"
+			android:textColor="@color/black"
+			android:textSize="@dimen/text_10"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
+
+		<TextView
+			android:id="@+id/tvContent"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="@dimen/dp_5"
+			android:text="@{item.content}"
+			android:textColor="@color/black"
+			android:textSize="@dimen/text_12"
+			android:textStyle="italic"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/tvAuthor" />
+
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/dp_1"
+			android:layout_marginTop="@dimen/dp_8"
+			android:background="@color/gray"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/tvContent" />
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

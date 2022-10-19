@@ -12,13 +12,16 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.kotlin.myapplication.R
+import com.kotlin.myapplication.adapters.ReviewAdapter
 import com.kotlin.myapplication.constants.Constant
 import com.kotlin.myapplication.constants.Status
 import com.kotlin.myapplication.databinding.ActivityMovieDetailBinding
 import com.kotlin.myapplication.di.viewmodel.MovieViewModel
 import com.kotlin.myapplication.models.item.MovieItemModel
+import com.kotlin.myapplication.models.response.Review
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -30,6 +33,8 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private val viewModel: MovieViewModel by viewModel()
     private lateinit var binding: ActivityMovieDetailBinding
+
+    private val reviewAdapter: ReviewAdapter by lazy { ReviewAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +52,7 @@ class MovieDetailActivity : AppCompatActivity() {
             }
         }
 
+        setupRecyclerView()
         setupObserver()
         callApi(item?.id)
     }
@@ -77,7 +83,7 @@ class MovieDetailActivity : AppCompatActivity() {
                 }
                 Status.SUCCESS -> {
                     it.data?.let { response ->
-//                        Toast.makeText(this, (response.size.toString() + " "), Toast.LENGTH_SHORT).show()
+                        setDataList(response as List<Review>)
                     }
                 }
                 Status.ERROR -> {
@@ -88,9 +94,21 @@ class MovieDetailActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupRecyclerView() {
+        binding.rvReview.apply {
+            adapter = reviewAdapter
+            layoutManager = LinearLayoutManager(this@MovieDetailActivity)
+        }
+    }
+
+    private fun setDataList(list: List<Review>) {
+        reviewAdapter.differ.submitList(list)
+    }
+
     private fun setupTrailer(key: String?) {
         binding.layoutTrailer.visibility = View.VISIBLE
-        Glide.with(this).load("${Constant.BASE_IMAGE_THUMBNAIL_YOUTUBE}$key/0.jpg").into(binding.ivThumbnailYoutube)
+        Glide.with(this).load("${Constant.BASE_IMAGE_THUMBNAIL_YOUTUBE}$key/0.jpg")
+            .into(binding.ivThumbnailYoutube)
         binding.layoutTrailer.setOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Constant.BASE__YOUTUBE + key)))
         }

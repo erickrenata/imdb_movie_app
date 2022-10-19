@@ -237,6 +237,18 @@
 
 				</RelativeLayout>
 
+				<TextView
+					android:id="@+id/textViewReview"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:text="@string/label_review"
+					android:textColor="@color/black"
+					android:textSize="@dimen/text_14"
+					android:layout_marginTop="@dimen/dp_16"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/layoutTrailer"/>
+
 				<androidx.recyclerview.widget.RecyclerView
 					android:id="@+id/rvReview"
 					android:layout_width="match_parent"
@@ -244,7 +256,7 @@
 					app:layout_constraintBottom_toBottomOf="parent"
 					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toBottomOf="@+id/layoutTrailer" />
+					app:layout_constraintTop_toBottomOf="@+id/textViewReview" />
 
 			</androidx.constraintlayout.widget.ConstraintLayout>
 
